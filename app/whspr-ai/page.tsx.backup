@@ -1,0 +1,1337 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { Menu, User, Brain, Activity, Users } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
+import { CoinDetailModal } from "@/components/coin-detail-modal"
+import Link from "next/link"
+
+export default function WHSPRAIPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [selectedTokenForTrading, setSelectedTokenForTrading] = useState<string | null>(null)
+  const [selectedCoin, setSelectedCoin] = useState<string | null>(null)
+  const [isCoinModalOpen, setIsCoinModalOpen] = useState(false)
+
+  const handleTradeClick = (tokenSymbol: string, e: React.MouseEvent) => {
+    e.stopPropagation()
+    setSelectedTokenForTrading(prev => prev === tokenSymbol ? null : tokenSymbol)
+  }
+
+  const handlePlatformClick = (platformUrl: string, token: any, e: React.MouseEvent) => {
+    e.stopPropagation()
+    const url = `${platformUrl}?token=${token.contract}`
+    window.open(url, '_blank')
+  }
+
+  const handleCoinClick = (coinSymbol: string) => {
+    setSelectedCoin(coinSymbol)
+    setIsCoinModalOpen(true)
+  }
+
+  // Close trading platform selection when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (selectedTokenForTrading) {
+        setSelectedTokenForTrading(null)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [selectedTokenForTrading])
+
+  // Token data for the calls
+  const tokenData = {
+    MASK: {
+      symbol: "MASK",
+      name: "catwifmask",
+      contract: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      image: "/images/ninja-cat.png",
+      mcap: "$13.0M",
+      holders: "2.9K",
+      change: "+116.5%"
+    },
+    PEPE: {
+      symbol: "PEPE", 
+      name: "pepewifhat",
+      contract: "5MAYDfq5yxtudAhtfyuMBuHZjgAbaS9tbEyEQYAhDS5y",
+      image: "/images/space-pig.png",
+      mcap: "$7.8B",
+      holders: "234K",
+      change: "+89.2%"
+    },
+    DOGE: {
+      symbol: "DOGE",
+      name: "dogewifcoin", 
+      contract: "FYfqxqMjP66pq8nJHcvMtEqEF8pkYeB4W4UyGEzCwBf5",
+      image: "/images/blue-bunny.png",
+      mcap: "$15.4B",
+      holders: "4.8K",
+      change: "+45.8%"
+    }
+  }
+
+  // Team calls token data
+  const teamTokenData = {
+    BEAR: {
+      symbol: "BEAR",
+      name: "brownbear",
+      contract: "8MAYDfq5yxtudAhtfyuMBuHZjgAbaS9tbEyEQYAhDS5y",
+      image: "/images/brown-bear.png",
+      mcap: "$4.2M",
+      holders: "3.4K",
+      change: "+28.7%"
+    },
+    KITTY: {
+      symbol: "KITTY", 
+      name: "hellokitty",
+      contract: "9MAYDfq5yxtudAhtfyuMBuHZjgAbaS9tbEyEQYAhDS5y",
+      image: "/images/hello-kitty.png",
+      mcap: "$7.6M",
+      holders: "4.5K",
+      change: "+19.8%"
+    },
+    ROBOT: {
+      symbol: "ROBOT",
+      name: "robotface", 
+      contract: "7MAYDfq5yxtudAhtfyuMBuHZjgAbaS9tbEyEQYAhDS5y",
+      image: "/images/robot-face.png",
+      mcap: "$23.1M",
+      holders: "6.7K",
+      change: "+17.5%"
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-black text-white">
+      {/* Animated Grid Background */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="grid-background"></div>
+        </div>
+      </div>
+
+      {/* Animated Particles */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="particle particle-1"></div>
+        <div className="particle particle-2"></div>
+        <div className="particle particle-3"></div>
+        <div className="particle particle-4"></div>
+        <div className="particle particle-5"></div>
+        <div className="particle particle-6"></div>
+        <div className="particle particle-7"></div>
+        <div className="particle particle-8"></div>
+      </div>
+
+      {/* Scanning Lines */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="scan-line"></div>
+      </div>
+
+      {/* Header */}
+      <header className="relative z-50 flex items-center justify-between p-4 border-b border-slate-500/30 bg-gradient-to-r from-black via-gray-900/20 to-black shadow-lg shadow-slate-500/10 header-nav">
+        {/* Left spacer for centering */}
+        <div className="w-20"></div>
+
+        {/* Center - Logo and Navigation in same rounded container */}
+        <nav className="hidden md:flex items-center space-x-8 bg-black/40 border border-slate-500/30 rounded-2xl px-8 py-3 backdrop-blur-sm relative overflow-hidden nav-glow">
+          <Link href="/" className="mr-4 logo-container">
+            <img 
+              src="/whspr-neon-logo.png" 
+              alt="WHSPR" 
+              className="h-16 w-auto cursor-pointer neon-logo transition-all duration-300"
+            />
+          </Link>
+          <Link href="/monitors" className="text-slate-300 hover:text-cyan-400 transition-colors font-medium nav-item">
+            Trench Monitors
+          </Link>
+          <Link href="/whspr-ai" className="text-white hover:text-purple-400 transition-colors font-medium nav-item">
+            WHSPR Calls
+          </Link>
+          <Link href="/smart-wallets" className="text-slate-300 hover:text-emerald-400 transition-colors font-medium nav-item">
+            Smart Wallets
+          </Link>
+          <Link href="/about" className="text-slate-300 hover:text-orange-400 transition-colors font-medium nav-item">
+            About
+          </Link>
+        </nav>
+
+        {/* Right spacer for centering */}
+        <div className="w-20"></div>
+
+        {/* Mobile menu button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="hover:bg-slate-500/10 hover:shadow-lg hover:shadow-slate-500/20 md:hidden"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          <Menu className="h-5 w-5 text-slate-400" />
+        </Button>
+      </header>
+
+      {/* Main Content */}
+      <div className="p-4 main-container">
+        {/* WHSPR CALLS Section */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-4 pl-4">
+            <Brain className="h-5 w-5 text-purple-400" />
+            <h1 className="text-lg font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              WHSPR CALLS
+            </h1>
+          </div>
+          <div className="bg-black/60 border border-purple-500/20 rounded-lg p-4 backdrop-blur-[0.5rem] shadow-lg shadow-purple-500/10">
+            <p className="text-gray-300 text-sm leading-relaxed">
+              WHSPR is our in-house AI Caller, trained to identify high-potential opportunities through real-time analysis of market trends, social sentiment, and on-chain data. Never miss a runner again.
+            </p>
+          </div>
+        </div>
+
+        {/* WHSPR Calls Content */}
+        <Card className="bg-black/80 border border-purple-500/20 shadow-lg shadow-purple-500/10 mb-6 backdrop-blur-[0.5rem]">
+          <CardContent className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Pick 1 - $MASK */}
+              <div className="relative p-5 rounded-xl bg-gradient-to-br from-purple-900/30 via-cyan-900/20 to-indigo-900/25 border-2 border-purple-400/30 hover:border-purple-300/70 hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-500 overflow-hidden group backdrop-blur-md">
+                {/* Frosted glass overlay */}
+                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-xl opacity-60"></div>
+                
+                {/* Enhanced animated background glow - only on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-cyan-500/10 to-indigo-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                {/* Premium neon accent lines - only on hover */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-400 to-cyan-400 opacity-0 group-hover:opacity-80 rounded-t-xl transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-400 to-purple-400 opacity-0 group-hover:opacity-60 rounded-b-xl transition-opacity duration-500"></div>
+
+                {/* Clickable area for token details */}
+                <div 
+                  className="absolute inset-0 cursor-pointer z-0"
+                  onClick={() => handleCoinClick("MASK")}
+                ></div>
+
+                {/* Header with profile and close */}
+                <div className="relative flex items-start justify-between mb-4 z-10">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-purple-400/70 shadow-xl shadow-purple-500/40 group-hover:shadow-purple-400/60 transition-all duration-500 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 backdrop-blur-sm">
+                        <img src="/images/ninja-cat.png" alt="MASK" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full border-2 border-black animate-pulse shadow-xl shadow-emerald-400/60"></div>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-white font-bold text-xl bg-gradient-to-r from-purple-300 to-cyan-300 bg-clip-text text-transparent drop-shadow-lg">
+                          $MASK
+                        </span>
+                        <button className="w-5 h-5 bg-gradient-to-r from-gray-700 to-gray-800 hover:from-purple-600/50 hover:to-cyan-600/50 rounded-lg flex items-center justify-center transition-all duration-300 border border-gray-600 hover:border-purple-400/50 backdrop-blur-sm">
+                          <span className="text-xs text-gray-300">⧉</span>
+                        </button>
+                      </div>
+                      <span className="text-gray-300 text-sm font-medium">catwifmask</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="flex items-center gap-2 text-xs">
+                      <div className="flex items-center gap-1">
+                        <span className="text-purple-300 font-semibold">MC:</span>
+                        <span className="text-white font-bold">$13.0M</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-cyan-300 font-semibold">Holders:</span>
+                        <span className="text-white font-bold">2.9K</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-pink-300 font-semibold">24h:</span>
+                        <span className="text-emerald-400 font-bold">+116.5%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action buttons */}
+                <div className="flex items-center gap-2 mb-4 relative z-10">
+                  <div className="flex gap-1">
+                    {/* X (Twitter) Logo */}
+                    <button className="w-8 h-8 bg-gray-800 hover:bg-blue-500/20 rounded-lg flex items-center justify-center transition-colors border border-gray-600 hover:border-blue-400/50">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-blue-400">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                    </button>
+                    {/* Website Logo */}
+                    <button className="w-8 h-8 bg-gray-800 hover:bg-green-500/20 rounded-lg flex items-center justify-center transition-colors border border-gray-600 hover:border-green-400/50">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-green-400">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                      </svg>
+                    </button>
+                    {/* Telegram Logo */}
+                    <button className="w-8 h-8 bg-gray-800 hover:bg-blue-500/20 rounded-lg flex items-center justify-center transition-colors border border-gray-600 hover:border-blue-400/50">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-blue-400">
+                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  {selectedTokenForTrading === "MASK" ? (
+                    <div className="ml-auto flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-purple-500/20">
+                      {/* Axiom */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://axiom.trade', tokenData.MASK, e)}
+                              className="p-2 bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/30 rounded-lg transition-colors"
+                            >
+                              <svg width="16" height="16" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24.1384 17.3876H11.8623L18.0001 7.00012L24.1384 17.3876Z" fill="#6366F1"/>
+                                <path d="M31 29.0003L5 29.0003L9.96764 20.5933L26.0324 20.5933L31 29.0003Z" fill="#6366F1"/>
+                              </svg>
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Axiom</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* Bull X */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://bullx.io', tokenData.MASK, e)}
+                              className="p-2 bg-orange-500/20 hover:bg-orange-500/30 border border-orange-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/Bullx-logo.svg" alt="Bull X" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Bull X</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* Photon */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://photon.trade', tokenData.MASK, e)}
+                              className="p-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/photon logo.svg" alt="Photon" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Photon</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* GMGN */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://gmgn.ai', tokenData.MASK, e)}
+                              className="p-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/gmgn-logo.svg" alt="GMGN" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">GMGN</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* Nova */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://nova.app', tokenData.MASK, e)}
+                              className="p-2 bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/nova-logo.svg" alt="Nova" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Nova</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                  ) : (
+                    <button 
+                      className="ml-auto px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
+                      onClick={(e) => handleTradeClick("MASK", e)}
+                    >
+                      Trade
+                    </button>
+                  )}
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-3 gap-3 text-center">
+                  <div>
+                    <div className="text-purple-400 text-xs">Called</div>
+                    <div className="text-white font-bold">2d ago</div>
+                  </div>
+                  <div>
+                    <div className="text-cyan-400 text-xs">Current Gain</div>
+                    <div className="text-emerald-400 font-bold text-lg">116.5x</div>
+                  </div>
+                  <div>
+                    <div className="text-pink-400 text-xs">Highest Gain</div>
+                    <div className="text-emerald-400 font-bold">177.9x</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Pick 2 - $PEPE */}
+              <div className="relative p-5 rounded-xl bg-gradient-to-br from-green-900/30 via-pink-900/20 to-emerald-900/25 border-2 border-green-400/30 hover:border-green-300/70 hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-500 overflow-hidden group backdrop-blur-md">
+                {/* Frosted glass overlay */}
+                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-xl opacity-60"></div>
+                
+                {/* Enhanced animated background glow - only on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 via-pink-500/10 to-emerald-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                {/* Premium neon accent lines - only on hover */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-pink-400 opacity-0 group-hover:opacity-80 rounded-t-xl transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-pink-400 to-green-400 opacity-0 group-hover:opacity-60 rounded-b-xl transition-opacity duration-500"></div>
+
+                {/* Clickable area for token details */}
+                <div 
+                  className="absolute inset-0 cursor-pointer z-0"
+                  onClick={() => handleCoinClick("PEPE")}
+                ></div>
+
+                <div className="relative flex items-start justify-between mb-4 z-10">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-green-400/70 shadow-xl shadow-green-500/40 group-hover:shadow-green-400/60 transition-all duration-500 bg-gradient-to-br from-green-500/20 to-pink-500/20 backdrop-blur-sm">
+                        <img src="/images/space-pig.png" alt="PEPE" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full border-2 border-black animate-pulse shadow-xl shadow-emerald-400/60"></div>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-white font-bold text-xl bg-gradient-to-r from-green-300 to-pink-300 bg-clip-text text-transparent drop-shadow-lg">
+                          $PEPE
+                        </span>
+                        <button className="w-5 h-5 bg-gradient-to-r from-gray-700 to-gray-800 hover:from-green-600/50 hover:to-pink-600/50 rounded-lg flex items-center justify-center transition-all duration-300 border border-gray-600 hover:border-green-400/50 backdrop-blur-sm">
+                          <span className="text-xs text-gray-300">⧉</span>
+                        </button>
+                      </div>
+                      <span className="text-gray-300 text-sm font-medium">pepewifhat</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="flex items-center gap-2 text-xs">
+                      <div className="flex items-center gap-1">
+                        <span className="text-green-300 font-semibold">MC:</span>
+                        <span className="text-white font-bold">$7.8B</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-pink-300 font-semibold">Holders:</span>
+                        <span className="text-white font-bold">234K</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-cyan-300 font-semibold">24h:</span>
+                        <span className="text-emerald-400 font-bold">+89.2%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action buttons */}
+                <div className="flex items-center gap-2 mb-4 relative z-10">
+                  <div className="flex gap-1">
+                    {/* X (Twitter) Logo */}
+                    <button className="w-8 h-8 bg-gray-800 hover:bg-blue-500/20 rounded-lg flex items-center justify-center transition-colors border border-gray-600 hover:border-blue-400/50">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-blue-400">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                    </button>
+                    {/* Website Logo */}
+                    <button className="w-8 h-8 bg-gray-800 hover:bg-green-500/20 rounded-lg flex items-center justify-center transition-colors border border-gray-600 hover:border-green-400/50">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-green-400">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                      </svg>
+                    </button>
+                    {/* Telegram Logo */}
+                    <button className="w-8 h-8 bg-gray-800 hover:bg-blue-500/20 rounded-lg flex items-center justify-center transition-colors border border-gray-600 hover:border-blue-400/50">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-blue-400">
+                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  {selectedTokenForTrading === "PEPE" ? (
+                    <div className="ml-auto flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-green-500/20">
+                      {/* Axiom */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://axiom.trade', tokenData.PEPE, e)}
+                              className="p-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg transition-colors"
+                            >
+                              <svg width="16" height="16" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24.1384 17.3876H11.8623L18.0001 7.00012L24.1384 17.3876Z" fill="#6366F1"/>
+                                <path d="M31 29.0003L5 29.0003L9.96764 20.5933L26.0324 20.5933L31 29.0003Z" fill="#6366F1"/>
+                              </svg>
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Axiom</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* Bull X */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://bullx.io', tokenData.PEPE, e)}
+                              className="p-2 bg-orange-500/20 hover:bg-orange-500/30 border border-orange-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/Bullx-logo.svg" alt="Bull X" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Bull X</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* Photon */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://photon.trade', tokenData.PEPE, e)}
+                              className="p-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/photon logo.svg" alt="Photon" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Photon</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* GMGN */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://gmgn.ai', tokenData.PEPE, e)}
+                              className="p-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/gmgn-logo.svg" alt="GMGN" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">GMGN</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* Nova */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://nova.app', tokenData.PEPE, e)}
+                              className="p-2 bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/nova-logo.svg" alt="Nova" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Nova</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                  ) : (
+                    <button 
+                      className="ml-auto px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
+                      onClick={(e) => handleTradeClick("PEPE", e)}
+                    >
+                      Trade
+                    </button>
+                  )}
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-3 gap-3 text-center">
+                  <div>
+                    <div className="text-green-400 text-xs">Called</div>
+                    <div className="text-white font-bold">5h ago</div>
+                  </div>
+                  <div>
+                    <div className="text-pink-400 text-xs">Current Gain</div>
+                    <div className="text-emerald-400 font-bold text-lg">89.2x</div>
+                  </div>
+                  <div>
+                    <div className="text-cyan-400 text-xs">Highest Gain</div>
+                    <div className="text-emerald-400 font-bold">124.7x</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Pick 3 - $DOGE */}
+              <div className="relative p-5 rounded-xl bg-gradient-to-br from-cyan-900/30 via-orange-900/20 to-blue-900/25 border-2 border-cyan-400/30 hover:border-cyan-300/70 hover:shadow-2xl hover:shadow-cyan-500/30 transition-all duration-500 overflow-hidden group backdrop-blur-md">
+                {/* Frosted glass overlay */}
+                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-xl opacity-60"></div>
+                
+                {/* Enhanced animated background glow - only on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-orange-500/10 to-blue-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                {/* Premium neon accent lines - only on hover */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-400 to-orange-400 opacity-0 group-hover:opacity-80 rounded-t-xl transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-orange-400 to-cyan-400 opacity-0 group-hover:opacity-60 rounded-b-xl transition-opacity duration-500"></div>
+
+                {/* Clickable area for token details */}
+                <div 
+                  className="absolute inset-0 cursor-pointer z-0"
+                  onClick={() => handleCoinClick("DOGE")}
+                ></div>
+
+                <div className="relative flex items-start justify-between mb-4 z-10">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-cyan-400/70 shadow-xl shadow-cyan-500/40 group-hover:shadow-cyan-400/60 transition-all duration-500 bg-gradient-to-br from-cyan-500/20 to-orange-500/20 backdrop-blur-sm">
+                        <img src="/images/blue-bunny.png" alt="DOGE" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full border-2 border-black animate-pulse shadow-xl shadow-emerald-400/60"></div>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-white font-bold text-xl bg-gradient-to-r from-cyan-300 to-orange-300 bg-clip-text text-transparent drop-shadow-lg">
+                          $DOGE
+                        </span>
+                        <button className="w-5 h-5 bg-gradient-to-r from-gray-700 to-gray-800 hover:from-cyan-600/50 hover:to-orange-600/50 rounded-lg flex items-center justify-center transition-all duration-300 border border-gray-600 hover:border-cyan-400/50 backdrop-blur-sm">
+                          <span className="text-xs text-gray-300">⧉</span>
+                        </button>
+                      </div>
+                      <span className="text-gray-300 text-sm font-medium">dogewifcoin</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="flex items-center gap-2 text-xs">
+                      <div className="flex items-center gap-1">
+                        <span className="text-cyan-300 font-semibold">MC:</span>
+                        <span className="text-white font-bold">$15.4B</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-orange-300 font-semibold">Holders:</span>
+                        <span className="text-white font-bold">4.8K</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-purple-300 font-semibold">24h:</span>
+                        <span className="text-emerald-400 font-bold">+45.8%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action buttons */}
+                <div className="flex items-center gap-2 mb-4 relative z-10">
+                  <div className="flex gap-1">
+                    {/* X (Twitter) Logo */}
+                    <button className="w-8 h-8 bg-gray-800 hover:bg-blue-500/20 rounded-lg flex items-center justify-center transition-colors border border-gray-600 hover:border-blue-400/50">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-blue-400">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                    </button>
+                    {/* Website Logo */}
+                    <button className="w-8 h-8 bg-gray-800 hover:bg-green-500/20 rounded-lg flex items-center justify-center transition-colors border border-gray-600 hover:border-green-400/50">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-green-400">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                      </svg>
+                    </button>
+                    {/* Telegram Logo */}
+                    <button className="w-8 h-8 bg-gray-800 hover:bg-blue-500/20 rounded-lg flex items-center justify-center transition-colors border border-gray-600 hover:border-blue-400/50">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-blue-400">
+                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  {selectedTokenForTrading === "DOGE" ? (
+                    <div className="ml-auto flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-cyan-500/20">
+                      {/* Axiom */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://axiom.trade', tokenData.DOGE, e)}
+                              className="p-2 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/30 rounded-lg transition-colors"
+                            >
+                              <svg width="16" height="16" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24.1384 17.3876H11.8623L18.0001 7.00012L24.1384 17.3876Z" fill="#6366F1"/>
+                                <path d="M31 29.0003L5 29.0003L9.96764 20.5933L26.0324 20.5933L31 29.0003Z" fill="#6366F1"/>
+                              </svg>
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Axiom</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* Bull X */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://bullx.io', tokenData.DOGE, e)}
+                              className="p-2 bg-orange-500/20 hover:bg-orange-500/30 border border-orange-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/Bullx-logo.svg" alt="Bull X" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Bull X</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* Photon */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://photon.trade', tokenData.DOGE, e)}
+                              className="p-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/photon logo.svg" alt="Photon" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Photon</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* GMGN */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://gmgn.ai', tokenData.DOGE, e)}
+                              className="p-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/gmgn-logo.svg" alt="GMGN" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">GMGN</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* Nova */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://nova.app', tokenData.DOGE, e)}
+                              className="p-2 bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/nova-logo.svg" alt="Nova" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Nova</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                  ) : (
+                    <button 
+                      className="ml-auto px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
+                      onClick={(e) => handleTradeClick("DOGE", e)}
+                    >
+                      Trade
+                    </button>
+                  )}
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-3 gap-3 text-center">
+                  <div>
+                    <div className="text-cyan-400 text-xs">Called</div>
+                    <div className="text-white font-bold">1d ago</div>
+                  </div>
+                  <div>
+                    <div className="text-orange-400 text-xs">Current Gain</div>
+                    <div className="text-emerald-400 font-bold text-lg">45.8x</div>
+                  </div>
+                  <div>
+                    <div className="text-purple-400 text-xs">Highest Gain</div>
+                    <div className="text-emerald-400 font-bold">67.3x</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+                {/* TEAM CALLS Section */}
+                <div className="mb-8">
+          <div className="flex items-center gap-3 mb-4 pl-4">
+            <Users className="h-5 w-5 text-emerald-400" />
+            <h1 className="text-lg font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+              TEAM CALLS
+            </h1>
+          </div>
+          <div className="bg-gradient-to-br from-emerald-900/15 via-black/60 to-green-900/10 border border-emerald-500/20 rounded-lg p-4 backdrop-blur-[0.5rem] shadow-lg shadow-emerald-500/10 relative overflow-hidden">
+            {/* Subtle inner glow overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-green-500/5 rounded-lg"></div>
+            <p className="text-gray-300 text-sm leading-relaxed relative z-10">
+              Curated calls from our expert trading team, featuring carefully selected opportunities with detailed analysis and strategic insights from seasoned professionals.
+            </p>
+          </div>
+        </div>
+
+        {/* Team Calls Content */}
+        <Card className="bg-black/80 border border-emerald-500/20 shadow-lg shadow-emerald-500/10 mb-6 backdrop-blur-[0.5rem]">
+          <CardContent className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Pick 1 - $BEAR */}
+              <div className="relative p-5 rounded-xl bg-gradient-to-br from-emerald-900/30 via-green-900/20 to-teal-900/25 border-2 border-emerald-400/30 hover:border-emerald-300/70 hover:shadow-2xl hover:shadow-emerald-500/30 transition-all duration-500 overflow-hidden group backdrop-blur-md">
+                {/* Frosted glass overlay */}
+                <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-xl opacity-60"></div>
+                
+                {/* Enhanced animated background glow - only on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-green-500/10 to-teal-500/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                {/* Premium neon accent lines - only on hover */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-400 to-green-400 opacity-0 group-hover:opacity-80 rounded-t-xl transition-opacity duration-500"></div>
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-emerald-400 opacity-0 group-hover:opacity-60 rounded-b-xl transition-opacity duration-500"></div>
+
+                {/* Clickable area for token details */}
+                <div 
+                  className="absolute inset-0 cursor-pointer z-0"
+                  onClick={() => handleCoinClick("BEAR")}
+                ></div>
+
+                {/* Header with profile and close */}
+                <div className="relative flex items-start justify-between mb-4 z-10">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-emerald-400/70 shadow-xl shadow-emerald-500/40 group-hover:shadow-emerald-400/60 transition-all duration-500 bg-gradient-to-br from-emerald-500/20 to-green-500/20 backdrop-blur-sm">
+                        <img src="/images/brown-bear.png" alt="BEAR" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-emerald-400 to-green-500 rounded-full border-2 border-black animate-pulse shadow-xl shadow-emerald-400/60"></div>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-white font-bold text-xl bg-gradient-to-r from-emerald-300 to-green-300 bg-clip-text text-transparent drop-shadow-lg">
+                          $BEAR
+                        </span>
+                        <button className="w-5 h-5 bg-gradient-to-r from-gray-700 to-gray-800 hover:from-emerald-600/50 hover:to-green-600/50 rounded-lg flex items-center justify-center transition-all duration-300 border border-gray-600 hover:border-emerald-400/50 backdrop-blur-sm">
+                          <span className="text-xs text-gray-300">⧉</span>
+                        </button>
+                      </div>
+                      <span className="text-gray-300 text-sm font-medium">brownbear</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="flex items-center gap-2 text-xs">
+                      <div className="flex items-center gap-1">
+                        <span className="text-emerald-300 font-semibold">MC:</span>
+                        <span className="text-white font-bold">$4.2M</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-green-300 font-semibold">Holders:</span>
+                        <span className="text-white font-bold">3.4K</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-teal-300 font-semibold">24h:</span>
+                        <span className="text-emerald-400 font-bold">+28.7%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action buttons */}
+                <div className="flex items-center gap-2 mb-4 relative z-10">
+                  <div className="flex gap-1">
+                    {/* X (Twitter) Logo */}
+                    <button className="w-8 h-8 bg-gray-800 hover:bg-blue-500/20 rounded-lg flex items-center justify-center transition-colors border border-gray-600 hover:border-blue-400/50">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-blue-400">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                    </button>
+                    {/* Website Logo */}
+                    <button className="w-8 h-8 bg-gray-800 hover:bg-green-500/20 rounded-lg flex items-center justify-center transition-colors border border-gray-600 hover:border-green-400/50">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-green-400">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                      </svg>
+                    </button>
+                    {/* Telegram Logo */}
+                    <button className="w-8 h-8 bg-gray-800 hover:bg-blue-500/20 rounded-lg flex items-center justify-center transition-colors border border-gray-600 hover:border-blue-400/50">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="text-blue-400">
+                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  {selectedTokenForTrading === "BEAR" ? (
+                    <div className="ml-auto flex items-center gap-2 bg-black/40 rounded-lg p-2 border border-emerald-500/20">
+                      {/* Axiom */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://axiom.trade', teamTokenData.BEAR, e)}
+                              className="p-2 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/30 rounded-lg transition-colors"
+                            >
+                              <svg width="16" height="16" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24.1384 17.3876H11.8623L18.0001 7.00012L24.1384 17.3876Z" fill="#6366F1"/>
+                                <path d="M31 29.0003L5 29.0003L9.96764 20.5933L26.0324 20.5933L31 29.0003Z" fill="#6366F1"/>
+                              </svg>
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Axiom</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* Bull X */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://bullx.io', teamTokenData.BEAR, e)}
+                              className="p-2 bg-orange-500/20 hover:bg-orange-500/30 border border-orange-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/Bullx-logo.svg" alt="Bull X" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Bull X</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* Photon */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://photon.trade', teamTokenData.BEAR, e)}
+                              className="p-2 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/photon logo.svg" alt="Photon" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Photon</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* GMGN */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://gmgn.ai', teamTokenData.BEAR, e)}
+                              className="p-2 bg-green-500/20 hover:bg-green-500/30 border border-green-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/gmgn-logo.svg" alt="GMGN" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">GMGN</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+
+                      {/* Nova */}
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              onClick={(e) => handlePlatformClick('https://nova.app', teamTokenData.BEAR, e)}
+                              className="p-2 bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 rounded-lg transition-colors"
+                            >
+                              <img src="/nova-logo.svg" alt="Nova" width={16} height={16} />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent side="top">
+                            <p className="text-xs">Nova</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                  ) : (
+                    <button 
+                      className="ml-auto px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
+                      onClick={(e) => handleTradeClick("BEAR", e)}
+                    >
+                      Trade
+                    </button>
+                  )}
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-3 gap-3 text-center">
+                  <div>
+                    <div className="text-emerald-400 text-xs">Called</div>
+                    <div className="text-white font-bold">3h ago</div>            </div>
+          </CardContent>
+        </Card>
+
+        {/* Calls History Section */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-4 pl-4">
+            <Activity className="h-5 w-5 text-cyan-400" />
+            <h2 className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              Calls History
+            </h2>
+          </div>
+          
+          {/* Animated scrolling bar */}
+          <div className="relative overflow-hidden bg-black/60 border border-cyan-500/20 rounded-lg backdrop-blur-[0.5rem] shadow-lg shadow-cyan-500/10">
+            <div className="animate-scroll-left flex gap-6 py-4 px-4" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
+              {/* Historical Call 1 */}
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-emerald-900/30 to-green-900/20 border border-emerald-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+                <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-emerald-400/60 shadow-lg shadow-emerald-500/30 flex-shrink-0">
+                  <img src="/images/robot-face.png" alt="ROBOT" className="w-full h-full object-cover" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-emerald-300 font-bold text-sm">$ROBOT</div>
+                  <div className="text-gray-400 text-xs">Called 3d ago</div>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <div className="text-emerald-400 font-bold text-sm">234.7x</div>
+                  <div className="text-gray-400 text-xs">$8.9M MC</div>
+                </div>
+              </div>
+
+              {/* Historical Call 2 */}
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-orange-900/30 to-amber-900/20 border border-orange-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+                <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-orange-400/60 shadow-lg shadow-orange-500/30 flex-shrink-0">
+                  <img src="/images/glasses-guy.png" alt="GLASSES" className="w-full h-full object-cover" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-orange-300 font-bold text-sm">$GLASSES</div>
+                  <div className="text-gray-400 text-xs">Called 4d ago</div>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <div className="text-emerald-400 font-bold text-sm">189.3x</div>
+                  <div className="text-gray-400 text-xs">$12.4M MC</div>
+                </div>
+              </div>
+
+              {/* Historical Call 3 */}
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-pink-900/30 to-rose-900/20 border border-pink-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+                <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-pink-400/60 shadow-lg shadow-pink-500/30 flex-shrink-0">
+                  <img src="/images/hello-kitty.png" alt="KITTY" className="w-full h-full object-cover" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-pink-300 font-bold text-sm">$KITTY</div>
+                  <div className="text-gray-400 text-xs">Called 5d ago</div>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <div className="text-emerald-400 font-bold text-sm">156.8x</div>
+                  <div className="text-gray-400 text-xs">$6.7M MC</div>
+                </div>
+              </div>
+
+              {/* Historical Call 4 */}
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+                <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-blue-400/60 shadow-lg shadow-blue-500/30 flex-shrink-0">
+                  <img src="/images/brown-bear.png" alt="BEAR" className="w-full h-full object-cover" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-blue-300 font-bold text-sm">$BEAR</div>
+                  <div className="text-gray-400 text-xs">Called 6d ago</div>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <div className="text-emerald-400 font-bold text-sm">98.4x</div>
+                  <div className="text-gray-400 text-xs">$15.2M MC</div>
+                </div>
+              </div>
+
+              {/* Historical Call 5 */}
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-purple-900/30 to-violet-900/20 border border-purple-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+                <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-purple-400/60 shadow-lg shadow-purple-500/30 flex-shrink-0">
+                  <img src="/images/dogs-yard.png" alt="DOGS" className="w-full h-full object-cover" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-purple-300 font-bold text-sm">$DOGS</div>
+                  <div className="text-gray-400 text-xs">Called 7d ago</div>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <div className="text-emerald-400 font-bold text-sm">67.9x</div>
+                  <div className="text-gray-400 text-xs">$22.1M MC</div>
+                </div>
+              </div>
+
+              {/* Duplicate the items for seamless loop */}
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-emerald-900/30 to-green-900/20 border border-emerald-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+                <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-emerald-400/60 shadow-lg shadow-emerald-500/30 flex-shrink-0">
+                  <img src="/images/robot-face.png" alt="ROBOT" className="w-full h-full object-cover" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-emerald-300 font-bold text-sm">$ROBOT</div>
+                  <div className="text-gray-400 text-xs">Called 3d ago</div>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <div className="text-emerald-400 font-bold text-sm">234.7x</div>
+                  <div className="text-gray-400 text-xs">$8.9M MC</div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-orange-900/30 to-amber-900/20 border border-orange-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+                <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-orange-400/60 shadow-lg shadow-orange-500/30 flex-shrink-0">
+                  <img src="/images/glasses-guy.png" alt="GLASSES" className="w-full h-full object-cover" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-orange-300 font-bold text-sm">$GLASSES</div>
+                  <div className="text-gray-400 text-xs">Called 4d ago</div>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <div className="text-emerald-400 font-bold text-sm">189.3x</div>
+                  <div className="text-gray-400 text-xs">$12.4M MC</div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-pink-900/30 to-rose-900/20 border border-pink-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+                <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-pink-400/60 shadow-lg shadow-pink-500/30 flex-shrink-0">
+                  <img src="/images/hello-kitty.png" alt="KITTY" className="w-full h-full object-cover" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-pink-300 font-bold text-sm">$KITTY</div>
+                  <div className="text-gray-400 text-xs">Called 5d ago</div>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <div className="text-emerald-400 font-bold text-sm">156.8x</div>
+                  <div className="text-gray-400 text-xs">$6.7M MC</div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+                <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-blue-400/60 shadow-lg shadow-blue-500/30 flex-shrink-0">
+                  <img src="/images/brown-bear.png" alt="BEAR" className="w-full h-full object-cover" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-blue-300 font-bold text-sm">$BEAR</div>
+                  <div className="text-gray-400 text-xs">Called 6d ago</div>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <div className="text-emerald-400 font-bold text-sm">98.4x</div>
+                  <div className="text-gray-400 text-xs">$15.2M MC</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Coin Detail Modal */}
+      <CoinDetailModal
+        isOpen={isCoinModalOpen}
+        onClose={() => setIsCoinModalOpen(false)}
+        coinSymbol={selectedCoin || ""}
+      />
+
+      {/* Add the CSS styles */}
+      <style jsx>{`
+        .grid-background {
+          background-image: 
+            linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px);
+          background-size: 50px 50px;
+          width: 100%;
+          height: 100%;
+          animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+          0% { transform: translate(0, 0); }
+          100% { transform: translate(50px, 50px); }
+        }
+
+        .particle {
+          position: absolute;
+          width: 2px;
+          height: 2px;
+          background: radial-gradient(circle, rgba(6, 182, 212, 0.8) 0%, transparent 70%);
+          border-radius: 50%;
+          animation: float 15s infinite linear;
+        }
+
+        .particle-1 {
+          top: 10%;
+          left: 10%;
+          animation-delay: 0s;
+          animation-duration: 12s;
+        }
+
+        .particle-2 {
+          top: 20%;
+          left: 80%;
+          animation-delay: -2s;
+          animation-duration: 18s;
+          background: radial-gradient(circle, rgba(168, 85, 247, 0.8) 0%, transparent 70%);
+        }
+
+        .particle-3 {
+          top: 60%;
+          left: 20%;
+          animation-delay: -4s;
+          animation-duration: 14s;
+          background: radial-gradient(circle, rgba(34, 197, 94, 0.8) 0%, transparent 70%);
+        }
+
+        .particle-4 {
+          top: 80%;
+          left: 70%;
+          animation-delay: -6s;
+          animation-duration: 16s;
+          background: radial-gradient(circle, rgba(236, 72, 153, 0.8) 0%, transparent 70%);
+        }
+
+        .particle-5 {
+          top: 30%;
+          left: 50%;
+          animation-delay: -8s;
+          animation-duration: 20s;
+          background: radial-gradient(circle, rgba(251, 191, 36, 0.8) 0%, transparent 70%);
+        }
+
+        .particle-6 {
+          top: 70%;
+          left: 90%;
+          animation-delay: -10s;
+          animation-duration: 13s;
+          background: radial-gradient(circle, rgba(99, 102, 241, 0.8) 0%, transparent 70%);
+        }
+
+        .particle-7 {
+          top: 40%;
+          left: 5%;
+          animation-delay: -12s;
+          animation-duration: 17s;
+          background: radial-gradient(circle, rgba(239, 68, 68, 0.8) 0%, transparent 70%);
+        }
+
+        .particle-8 {
+          top: 90%;
+          left: 40%;
+          animation-delay: -14s;
+          animation-duration: 19s;
+          background: radial-gradient(circle, rgba(6, 182, 212, 0.8) 0%, transparent 70%);
+        }
+
+        @keyframes float {
+          0% {
+            transform: translateY(100vh) translateX(0px) scale(0);
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+            transform: translateY(90vh) translateX(10px) scale(1);
+          }
+          90% {
+            opacity: 1;
+            transform: translateY(-10vh) translateX(-10px) scale(1);
+          }
+          100% {
+            transform: translateY(-20vh) translateX(0px) scale(0);
+            opacity: 0;
+          }
+        }
+
+        .scan-line {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: linear-gradient(90deg, 
+            transparent 0%, 
+            rgba(6, 182, 212, 0.6) 50%, 
+            transparent 100%);
+          animation: scan 8s ease-in-out infinite;
+          box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        @keyframes scan {
+          0%, 100% {
+            transform: translateY(0vh);
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          90% {
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(100vh);
+            opacity: 0;
+          }
+        }
+
+        .main-container {
+          position: relative;
+          z-index: 1;
+        }
+
+        @keyframes gradient-x {
+          0%, 100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+        }
+
+        .animate-gradient-x {
+          background-size: 200% 200%;
+          animation: gradient-x 8s ease infinite;
+        }
+
+        .animate-scroll-left {
+          animation: scroll-left 25s linear infinite;
+          will-change: transform;
+          transform: translateZ(0);
+          backface-visibility: hidden;
+          perspective: 1000px;
+        }
+
+        .history-card {
+          transform: translateZ(0);
+          will-change: transform;
+          backface-visibility: hidden;
+        }
+
+        @keyframes scroll-left {
+          0% {
+            transform: translateX(0) translateZ(0);
+          }
+          100% {
+            transform: translateX(calc(-306px * 4 - 24px * 4)) translateZ(0);
+          }
+        }
+      `}</style>
+    </div>
+  )
+} 
