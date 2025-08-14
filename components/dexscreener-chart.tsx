@@ -74,15 +74,15 @@ export function DexScreenerChart({ tokenSymbol, tokenContract, className = "" }:
   }
 
   return (
-    <Card className={`bg-black/80 border border-cyan-500/20 ${className}`}>
+    <Card className={`bg-black/80 border border-blue-500/20 ${className}`}>
       <CardHeader className="pb-3">
-        <CardTitle className="text-cyan-400 text-sm font-semibold flex items-center justify-between">
+        <CardTitle className="text-blue-400 text-sm font-semibold flex items-center justify-between">
           <span>Price Chart - {tokenSymbol}</span>
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
               size="sm"
-              className="h-6 w-6 p-0 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30"
+              className="h-6 w-6 p-0 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30"
               onClick={handleRefresh}
               disabled={isLoading}
             >
@@ -91,7 +91,7 @@ export function DexScreenerChart({ tokenSymbol, tokenContract, className = "" }:
             <Button
               variant="ghost"
               size="sm"
-              className="h-6 w-6 p-0 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30"
+              className="h-6 w-6 p-0 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30"
               onClick={handleOpenExternal}
             >
               <ExternalLink className="h-3 w-3" />
@@ -100,15 +100,15 @@ export function DexScreenerChart({ tokenSymbol, tokenContract, className = "" }:
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
-        <div className="relative w-full h-64 bg-black/40 border-t border-cyan-500/10">
+        <div className="relative w-full h-64 bg-black/40 border-t border-blue-500/10">
           {isLoading ? (
             <div className="flex items-center justify-center h-full">
-              <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
+              <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
             </div>
           ) : (
             <div className="w-full h-full">
               {/* DexScreener Chart Embed */}
-              <div className="w-full h-full bg-gradient-to-br from-cyan-500/5 to-transparent border border-cyan-500/10 rounded-b-lg overflow-hidden">
+              <div className="w-full h-full bg-gradient-to-br from-blue-500/5 to-transparent border border-blue-500/10 rounded-b-lg overflow-hidden">
                 <iframe
                   src={chartUrl}
                   className="w-full h-full border-0"
@@ -120,12 +120,12 @@ export function DexScreenerChart({ tokenSymbol, tokenContract, className = "" }:
               
               {/* Fallback if iframe doesn't load */}
               <div className="absolute inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-                <div className="text-center text-cyan-300 text-sm">
+                <div className="text-center text-blue-300 text-sm">
                   <p className="mb-2">Chart loading...</p>
                   <Button
                     variant="outline"
                     size="sm"
-                    className="bg-cyan-500/10 border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20"
+                    className="bg-blue-500/10 border-blue-500/30 text-blue-400 hover:bg-blue-500/20"
                     onClick={handleOpenExternal}
                   >
                     <ExternalLink className="h-4 w-4 mr-2" />
@@ -138,10 +138,10 @@ export function DexScreenerChart({ tokenSymbol, tokenContract, className = "" }:
         </div>
         
         {/* Chart Info */}
-        <div className="p-3 bg-black/20 border-t border-cyan-500/10">
-          <div className="flex items-center justify-between text-xs text-cyan-300">
+        <div className="p-3 bg-black/20 border-t border-blue-500/10">
+          <div className="flex items-center justify-between text-xs text-blue-300">
             <span>Data provided by DexScreener</span>
-            <span className="text-cyan-400">Real-time</span>
+            <span className="text-blue-400">Real-time</span>
           </div>
         </div>
       </CardContent>

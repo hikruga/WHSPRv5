@@ -49,15 +49,15 @@ export default function AboutPage() {
               className="h-16 w-auto cursor-pointer neon-logo transition-all duration-300"
             />
           </Link>
-          <Link href="/monitors" className="text-slate-300 hover:text-cyan-400 transition-colors font-medium nav-item">
-            Trench Monitors
-          </Link>
           <Link href="/whspr-ai" className="text-slate-300 hover:text-purple-400 transition-colors font-medium nav-item">
             WHSPR Calls
           </Link>
           <Link href="/smart-wallets" className="text-slate-300 hover:text-emerald-400 transition-colors font-medium nav-item">
             Smart Wallets
           </Link>
+          <span className="text-slate-500/60 cursor-not-allowed font-medium nav-item">
+            Trench Monitors
+          </span>
           <Link href="/about" className="text-white hover:text-orange-400 transition-colors font-medium nav-item">
             About
           </Link>

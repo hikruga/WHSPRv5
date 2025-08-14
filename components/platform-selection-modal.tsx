@@ -3,7 +3,8 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { ExternalLink } from "lucide-react"
-import { AxiomLogo } from "@/components/icons/axiom-logo"
+// Using inline SVGs for all platforms to avoid cross-module icon issues
+import type { ReactNode } from "react"
 
 interface PlatformSelectionModalProps {
   isOpen: boolean
@@ -15,7 +16,7 @@ interface PlatformSelectionModalProps {
 interface Platform {
   name: string
   url: string
-  logo: React.ReactNode
+  logo: ReactNode
   description: string
   color: string
   hoverColor: string
@@ -180,7 +181,12 @@ export function PlatformSelectionModal({ isOpen, onClose, tokenSymbol = "TOKEN",
       description: "Fast Solana trading platform",
       color: "from-slate-400 to-gray-600",
       hoverColor: "hover:shadow-slate-500/20",
-      logo: <AxiomLogo size={32} />
+      logo: (
+        <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24.1384 17.3876H11.8623L18.0001 7.00012L24.1384 17.3876Z" fill="#A855F7"/>
+          <path d="M31 29.0003L5 29.0003L9.96764 20.5933L26.0324 20.5933L31 29.0003Z" fill="#A855F7"/>
+        </svg>
+      )
     },
     {
       name: "DexScreener",

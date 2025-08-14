@@ -120,15 +120,15 @@ export default function HomePage() {
 
         {/* Center - Navigation in rounded container */}
         <nav className="hidden md:flex items-center space-x-8 bg-black/40 border border-slate-500/30 rounded-2xl px-8 py-3 backdrop-blur-sm relative overflow-hidden nav-glow">
-          <Link href="/monitors" className="text-slate-300 hover:text-cyan-400 transition-colors font-medium nav-item">
-            Trench Monitors
-          </Link>
           <Link href="/whspr-ai" className="text-slate-300 hover:text-purple-400 transition-colors font-medium nav-item">
             WHSPR Calls
           </Link>
           <Link href="/smart-wallets" className="text-slate-300 hover:text-emerald-400 transition-colors font-medium nav-item">
             Smart Wallets
           </Link>
+          <span className="text-slate-500/60 cursor-not-allowed font-medium nav-item">
+            Trench Monitors
+          </span>
           <Link href="/about" className="text-slate-300 hover:text-orange-400 transition-colors font-medium nav-item">
             About
           </Link>
@@ -182,37 +182,36 @@ export default function HomePage() {
             {/* Navigation */}
             <nav className="flex flex-col p-6 space-y-6 flex-1">
               <Link 
-                href="/monitors" 
-                className="flex items-center gap-3 text-cyan-400 hover:text-cyan-300 transition-colors text-lg font-medium hover:bg-cyan-500/10 rounded-lg p-3 -mx-3"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <TrendingUp className="h-5 w-5" />
-              Trench Monitors
-            </Link>
-              <Link 
                 href="/whspr-ai" 
                 className="flex items-center gap-3 text-purple-400 hover:text-purple-300 transition-colors text-lg font-medium hover:bg-purple-500/10 rounded-lg p-3 -mx-3"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Brain className="h-5 w-5" />
-              WHSPR AI
-            </Link>
+                WHSPR Calls
+              </Link>
               <Link 
                 href="/smart-wallets" 
                 className="flex items-center gap-3 text-green-400 hover:text-green-300 transition-colors text-lg font-medium hover:bg-green-500/10 rounded-lg p-3 -mx-3"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Wallet className="h-5 w-5" />
-              Smart Wallets
-            </Link>
+                Smart Wallets
+              </Link>
+              <div 
+                className="flex items-center gap-3 text-slate-500/60 cursor-not-allowed text-lg font-medium rounded-lg p-3 -mx-3"
+                aria-disabled="true"
+              >
+                <TrendingUp className="h-5 w-5" />
+                Trench Monitors
+              </div>
               <Link 
                 href="/about" 
                 className="flex items-center gap-3 text-orange-400 hover:text-orange-300 transition-colors text-lg font-medium hover:bg-orange-500/10 rounded-lg p-3 -mx-3"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Info className="h-5 w-5" />
-              About
-            </Link>
+                About
+              </Link>
             </nav>
             
             {/* Footer */}

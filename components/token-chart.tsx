@@ -71,12 +71,12 @@ export function TokenChart({ tokenSymbol, tokenContract, priceChange = "+0.00%",
       >
         <defs>
           <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="rgba(6, 182, 212, 0.8)" />
-            <stop offset="100%" stopColor="rgba(6, 182, 212, 0.1)" />
+            <stop offset="0%" stopColor="rgba(59, 130, 246, 0.8)" />
+            <stop offset="100%" stopColor="rgba(59, 130, 246, 0.1)" />
           </linearGradient>
           <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(6, 182, 212, 1)" />
-            <stop offset="100%" stopColor="rgba(6, 182, 212, 0.6)" />
+            <stop offset="0%" stopColor="rgba(59, 130, 246, 1)" />
+            <stop offset="100%" stopColor="rgba(59, 130, 246, 0.6)" />
           </linearGradient>
         </defs>
 
@@ -89,7 +89,7 @@ export function TokenChart({ tokenSymbol, tokenContract, priceChange = "+0.00%",
               y1={40 + i * 40}
               x2="400"
               y2={40 + i * 40}
-              stroke="rgba(6, 182, 212, 0.1)"
+              stroke="rgba(59, 130, 246, 0.12)"
               strokeWidth="1"
             />
           ))}
@@ -133,7 +133,7 @@ export function TokenChart({ tokenSymbol, tokenContract, priceChange = "+0.00%",
                 cx={x}
                 cy={y}
                 r="3"
-                fill="rgba(6, 182, 212, 1)"
+                fill="rgba(59, 130, 246, 1)"
                 className="drop-shadow-lg"
               />
             )
@@ -145,14 +145,14 @@ export function TokenChart({ tokenSymbol, tokenContract, priceChange = "+0.00%",
   }
 
   return (
-    <Card className={`bg-black/80 border border-cyan-500/20 ${className}`}>
+    <Card className={`bg-black/80 border border-blue-500/20 ${className}`}>
       <CardHeader className="pb-3">
-        <CardTitle className="text-cyan-400 text-sm font-semibold flex items-center justify-between">
+        <CardTitle className="text-blue-400 text-sm font-semibold flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span>Price Chart</span>
             <Badge 
               variant="outline" 
-              className={`text-xs ${getPriceChangeColor(priceChange)} border-cyan-500/30 bg-cyan-500/10`}
+              className={`text-xs ${getPriceChangeColor(priceChange)} border-blue-500/30 bg-blue-500/10`}
             >
               {getPriceChangeIcon(priceChange)}
               <span className="ml-1">{priceChange}</span>
@@ -161,7 +161,7 @@ export function TokenChart({ tokenSymbol, tokenContract, priceChange = "+0.00%",
           <Button
             variant="ghost"
             size="sm"
-            className="h-6 px-2 text-xs bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400"
+            className="h-6 px-2 text-xs bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-400"
             onClick={handleOpenDexScreener}
           >
             <ExternalLink className="h-3 w-3 mr-1" />
@@ -170,12 +170,12 @@ export function TokenChart({ tokenSymbol, tokenContract, priceChange = "+0.00%",
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
-        <div className="relative w-full h-64 bg-black/40 border-t border-cyan-500/10">
+        <div className="relative w-full h-64 bg-black/40 border-t border-blue-500/10">
           {isLoading ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400 mx-auto mb-2"></div>
-                <p className="text-cyan-300 text-sm">Loading chart...</p>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-2"></div>
+                <p className="text-blue-300 text-sm">Loading chart...</p>
               </div>
             </div>
           ) : (
@@ -186,10 +186,10 @@ export function TokenChart({ tokenSymbol, tokenContract, priceChange = "+0.00%",
         </div>
         
         {/* Chart Info */}
-        <div className="p-3 bg-black/20 border-t border-cyan-500/10">
-          <div className="flex items-center justify-between text-xs text-cyan-300">
+        <div className="p-3 bg-black/20 border-t border-blue-500/10">
+          <div className="flex items-center justify-between text-xs text-blue-300">
             <span>Interactive chart available on DexScreener</span>
-            <span className="text-cyan-400">Click to view full data</span>
+            <span className="text-blue-400">Click to view full data</span>
           </div>
         </div>
       </CardContent>

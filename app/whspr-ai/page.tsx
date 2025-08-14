@@ -170,6 +170,9 @@ export default function WHSPRAIPage() {
         { symbol: 'NINJA', name: 'ninjacat', percent: '0.93%', icon: '/images/ninja-cat.png' },
         { symbol: 'BUNNY', name: 'bluebunny', percent: '1.96%', icon: '/images/blue-bunny.png' },
         { symbol: 'PIG', name: 'spacepig', percent: '2.24%', icon: '/images/space-pig.png' },
+        { symbol: 'DOGS', name: 'dogsyard', percent: '1.12%', icon: '/images/dogs-yard.png' },
+        { symbol: 'KITTY', name: 'hellokitty', percent: '0.78%', icon: '/images/hello-kitty.png' },
+        { symbol: 'ROBOT', name: 'robotface', percent: '0.65%', icon: '/images/robot-face.png' },
       ],
     },
     {
@@ -183,6 +186,9 @@ export default function WHSPRAIPage() {
       holdings: [
         { symbol: 'DOGS', name: 'dogsyard', percent: '1.02%', icon: '/images/dogs-yard.png' },
         { symbol: 'GLASSES', name: 'glassesguy', percent: '0.67%', icon: '/images/glasses-guy.png' },
+        { symbol: 'NINJA', name: 'ninjacat', percent: '0.55%', icon: '/images/ninja-cat.png' },
+        { symbol: 'PIG', name: 'spacepig', percent: '0.49%', icon: '/images/space-pig.png' },
+        { symbol: 'KITTY', name: 'hellokitty', percent: '0.44%', icon: '/images/hello-kitty.png' },
       ],
     },
     {
@@ -373,15 +379,15 @@ export default function WHSPRAIPage() {
               className="h-16 w-auto cursor-pointer neon-logo transition-all duration-300"
             />
           </Link>
-          <Link href="/monitors" className="text-slate-300 hover:text-cyan-400 transition-colors font-medium nav-item">
-            Trench Monitors
-          </Link>
           <Link href="/whspr-ai" className="text-white hover:text-purple-400 transition-colors font-medium nav-item">
             WHSPR Calls
           </Link>
           <Link href="/smart-wallets" className="text-slate-300 hover:text-emerald-400 transition-colors font-medium nav-item">
             Smart Wallets
           </Link>
+          <span className="text-slate-500/60 cursor-not-allowed font-medium nav-item">
+            Trench Monitors
+          </span>
           <Link href="/about" className="text-slate-300 hover:text-orange-400 transition-colors font-medium nav-item">
             About
           </Link>
@@ -585,7 +591,7 @@ export default function WHSPRAIPage() {
                     </div>
                   ) : (
                     <button 
-                      className="ml-auto px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
+                      className="ml-auto -mr-1 px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
                       onClick={(e) => handleTradeClick("MASK", e)}
                     >
                       Trade
@@ -600,11 +606,11 @@ export default function WHSPRAIPage() {
                     <div className="text-white font-bold">2d ago</div>
                   </div>
                   <div>
-                    <div className="text-cyan-400 text-xs">Current Gain</div>
+                    <div className="text-pink-400 text-xs">Current Gain</div>
                     <div className="text-emerald-400 font-bold text-lg">116.5x</div>
                   </div>
                   <div>
-                    <div className="text-pink-400 text-xs">Highest Gain</div>
+                    <div className="text-orange-400 text-xs">Highest Gain</div>
                     <div className="text-emerald-400 font-bold">177.9x</div>
                   </div>
                 </div>
@@ -781,7 +787,7 @@ export default function WHSPRAIPage() {
                     </div>
                   ) : (
                     <button 
-                      className="ml-auto px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
+                      className="ml-auto -mr-1 px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
                       onClick={(e) => handleTradeClick("PEPE", e)}
                     >
                       Trade
@@ -792,7 +798,7 @@ export default function WHSPRAIPage() {
                 {/* Stats */}
                 <div className="grid grid-cols-3 gap-3 text-center">
                   <div>
-                    <div className="text-green-400 text-xs">Called</div>
+                    <div className="text-purple-400 text-xs">Called</div>
                     <div className="text-white font-bold">5h ago</div>
                   </div>
                   <div>
@@ -800,7 +806,7 @@ export default function WHSPRAIPage() {
                     <div className="text-emerald-400 font-bold text-lg">89.2x</div>
                   </div>
                   <div>
-                    <div className="text-cyan-400 text-xs">Highest Gain</div>
+                    <div className="text-orange-400 text-xs">Highest Gain</div>
                     <div className="text-emerald-400 font-bold">124.7x</div>
                   </div>
                 </div>
@@ -977,7 +983,7 @@ export default function WHSPRAIPage() {
                     </div>
                   ) : (
                     <button 
-                      className="ml-auto px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
+                      className="ml-auto -mr-1 px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
                       onClick={(e) => handleTradeClick("DOGE", e)}
                     >
                       Trade
@@ -988,16 +994,16 @@ export default function WHSPRAIPage() {
                 {/* Stats */}
                 <div className="grid grid-cols-3 gap-3 text-center">
                   <div>
-                    <div className="text-cyan-400 text-xs">Called</div>
+                    <div className="text-purple-400 text-xs">Called</div>
                     <div className="text-white font-bold">1d ago</div>
                   </div>
                   <div>
-                    <div className="text-orange-400 text-xs">Current Gain</div>
+                    <div className="text-pink-400 text-xs">Current Gain</div>
                     <div className="text-emerald-400 font-bold text-lg">45.8x</div>
                   </div>
                   <div>
-                  <div className="text-purple-400 text-xs">Highest Gain</div>
-                  <div className="text-emerald-400 font-bold">67.3x</div>
+                    <div className="text-orange-400 text-xs">Highest Gain</div>
+                    <div className="text-emerald-400 font-bold">67.3x</div>
                   </div>
                 </div>
               </div>
@@ -1150,7 +1156,7 @@ export default function WHSPRAIPage() {
                     </div>
                   ) : (
                     <button 
-                      className="ml-auto px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
+                      className="ml-auto -mr-1 px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
                       onClick={(e) => handleTradeClick("BEAR", e)}
                     >
                       Trade
@@ -1159,15 +1165,15 @@ export default function WHSPRAIPage() {
                 </div>
                 <div className="grid grid-cols-3 gap-3 text-center">
                   <div>
-                    <div className="text-emerald-400 text-xs">Called</div>
+                    <div className="text-purple-400 text-xs">Called</div>
                     <div className="text-white font-bold">3h ago</div>
                   </div>
                   <div>
-                    <div className="text-green-400 text-xs">Current Gain</div>
+                    <div className="text-pink-400 text-xs">Current Gain</div>
                     <div className="text-emerald-400 font-bold text-lg">28.7x</div>
                   </div>
                   <div>
-                    <div className="text-teal-400 text-xs">Highest Gain</div>
+                    <div className="text-orange-400 text-xs">Highest Gain</div>
                     <div className="text-emerald-400 font-bold">45.2x</div>
                   </div>
                 </div>
@@ -1321,7 +1327,7 @@ export default function WHSPRAIPage() {
                     </div>
                   ) : (
                     <button 
-                      className="ml-auto px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
+                      className="ml-auto -mr-1 px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
                       onClick={(e) => handleTradeClick("KITTY", e)}
                     >
                       Trade
@@ -1330,15 +1336,15 @@ export default function WHSPRAIPage() {
                 </div>
                 <div className="grid grid-cols-3 gap-3 text-center">
                   <div>
-                    <div className="text-pink-400 text-xs">Called</div>
+                    <div className="text-purple-400 text-xs">Called</div>
                     <div className="text-white font-bold">2h ago</div>
                   </div>
                   <div>
-                    <div className="text-rose-400 text-xs">Current Gain</div>
+                    <div className="text-pink-400 text-xs">Current Gain</div>
                     <div className="text-emerald-400 font-bold text-lg">19.8x</div>
                   </div>
                   <div>
-                    <div className="text-purple-400 text-xs">Highest Gain</div>
+                    <div className="text-orange-400 text-xs">Highest Gain</div>
                     <div className="text-emerald-400 font-bold">32.4x</div>
                   </div>
                 </div>
@@ -1501,7 +1507,7 @@ export default function WHSPRAIPage() {
                     </div>
                   ) : (
                     <button 
-                      className="ml-auto px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
+                      className="ml-auto -mr-1 px-4 py-2 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 border border-gray-700/50 rounded-lg text-gray-300 font-semibold transition-all duration-200 flex items-center gap-2 shadow-md"
                       onClick={(e) => handleTradeClick("ROBOT", e)}
                     >
                       Trade
@@ -1510,15 +1516,15 @@ export default function WHSPRAIPage() {
                 </div>
                 <div className="grid grid-cols-3 gap-3 text-center">
                   <div>
-                    <div className="text-blue-400 text-xs">Called</div>
+                    <div className="text-purple-400 text-xs">Called</div>
                     <div className="text-white font-bold">1h ago</div>
                   </div>
                   <div>
-                    <div className="text-indigo-400 text-xs">Current Gain</div>
+                    <div className="text-pink-400 text-xs">Current Gain</div>
                     <div className="text-emerald-400 font-bold text-lg">17.5x</div>
                   </div>
                   <div>
-                    <div className="text-purple-400 text-xs">Highest Gain</div>
+                    <div className="text-orange-400 text-xs">Highest Gain</div>
                     <div className="text-emerald-400 font-bold">28.9x</div>
                   </div>
                 </div>
@@ -1536,11 +1542,11 @@ export default function WHSPRAIPage() {
               <Activity className="h-5 w-5 text-blue-400" />
               <h3 className="text-base font-bold text-blue-300">Calls History</h3>
             </div>
-            {/* Animated scrolling bar */}
-            <div className="relative overflow-hidden bg-black/60 border border-blue-500/20 rounded-lg backdrop-blur-[0.5rem] shadow-lg shadow-blue-500/10">
-              <div className="animate-scroll-left flex gap-6 py-4 px-4" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
+            {/* Animated scrolling bar (pauses on hover) */}
+            <div className="relative overflow-hidden bg-black/60 border border-blue-500/20 rounded-lg backdrop-blur-[0.5rem] shadow-lg shadow-blue-500/10 group">
+              <div className="animate-scroll-left group-hover:[animation-play-state:paused] flex gap-6 py-4 px-4" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
               {/* Historical Call 1 */}
-              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card cursor-pointer" onClick={() => handleCoinClick('ROBOT')}>
                 <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-blue-400/60 shadow-lg shadow-blue-500/30 flex-shrink-0">
                   <img src="/images/robot-face.png" alt="ROBOT" className="w-full h-full object-cover" />
                 </div>
@@ -1555,7 +1561,7 @@ export default function WHSPRAIPage() {
               </div>
 
               {/* Historical Call 2 */}
-              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card cursor-pointer" onClick={() => handleCoinClick('GLASSES')}>
                 <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-blue-400/60 shadow-lg shadow-blue-500/30 flex-shrink-0">
                   <img src="/images/glasses-guy.png" alt="GLASSES" className="w-full h-full object-cover" />
                 </div>
@@ -1570,7 +1576,7 @@ export default function WHSPRAIPage() {
               </div>
 
               {/* Historical Call 3 */}
-              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card cursor-pointer" onClick={() => handleCoinClick('KITTY')}>
                 <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-blue-400/60 shadow-lg shadow-blue-500/30 flex-shrink-0">
                   <img src="/images/hello-kitty.png" alt="KITTY" className="w-full h-full object-cover" />
                 </div>
@@ -1585,7 +1591,7 @@ export default function WHSPRAIPage() {
               </div>
 
               {/* Historical Call 4 */}
-              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card cursor-pointer" onClick={() => handleCoinClick('BEAR')}>
                 <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-blue-400/60 shadow-lg shadow-blue-500/30 flex-shrink-0">
                   <img src="/images/brown-bear.png" alt="BEAR" className="w-full h-full object-cover" />
                 </div>
@@ -1600,7 +1606,7 @@ export default function WHSPRAIPage() {
               </div>
 
               {/* Historical Call 5 */}
-              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card cursor-pointer" onClick={() => handleCoinClick('DOGS')}>
                 <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-blue-400/60 shadow-lg shadow-blue-500/30 flex-shrink-0">
                   <img src="/images/dogs-yard.png" alt="DOGS" className="w-full h-full object-cover" />
                 </div>
@@ -1615,7 +1621,7 @@ export default function WHSPRAIPage() {
               </div>
 
               {/* Duplicate the items for seamless loop */}
-              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card cursor-pointer" onClick={() => handleCoinClick('ROBOT')}>
                 <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-blue-400/60 shadow-lg shadow-blue-500/30 flex-shrink-0">
                   <img src="/images/robot-face.png" alt="ROBOT" className="w-full h-full object-cover" />
                 </div>
@@ -1629,7 +1635,7 @@ export default function WHSPRAIPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card cursor-pointer" onClick={() => handleCoinClick('GLASSES')}>
                 <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-blue-400/60 shadow-lg shadow-blue-500/30 flex-shrink-0">
                   <img src="/images/glasses-guy.png" alt="GLASSES" className="w-full h-full object-cover" />
                 </div>
@@ -1643,7 +1649,7 @@ export default function WHSPRAIPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card cursor-pointer" onClick={() => handleCoinClick('KITTY')}>
                 <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-blue-400/60 shadow-lg shadow-blue-500/30 flex-shrink-0">
                   <img src="/images/hello-kitty.png" alt="KITTY" className="w-full h-full object-cover" />
                 </div>
@@ -1657,7 +1663,7 @@ export default function WHSPRAIPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card">
+              <div className="flex items-center gap-4 min-w-[300px] bg-gradient-to-r from-blue-900/30 to-indigo-900/20 border border-blue-500/30 rounded-lg p-3 backdrop-blur-sm flex-shrink-0 history-card cursor-pointer" onClick={() => handleCoinClick('BEAR')}>
                 <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-blue-400/60 shadow-lg shadow-blue-500/30 flex-shrink-0">
                   <img src="/images/brown-bear.png" alt="BEAR" className="w-full h-full object-cover" />
                 </div>
@@ -1877,7 +1883,8 @@ export default function WHSPRAIPage() {
                             <div className="p-3 flex-1 flex flex-col">
                               <div className="text-[11px] text-slate-400 mb-2">Current Holdings</div>
                               <div className="space-y-2 overflow-hidden">
-                                {wallet.holdings.slice(0, 3).map((h, idx) => {
+                                <div className="max-h-32 overflow-y-auto pr-1 custom-holdings-scroll">
+                                {wallet.holdings.map((h, idx) => {
                                   const holdingKey = `${wallet.id}:${h.symbol}`
                                   return (
                                   <div key={idx} className="flex items-center gap-2">
@@ -1891,7 +1898,7 @@ export default function WHSPRAIPage() {
                                       <div className="text-[11px] text-white font-semibold">{h.percent}</div>
                                     </div>
                                      {selectedTokenForTrading === holdingKey ? (
-                                       <div className="ml-3 flex items-center gap-1 bg-black/40 rounded-md p-0.5 border border-blue-500/20" onClick={(e) => e.stopPropagation()}>
+                                       <div className="ml-2 flex items-center gap-1 bg-black/40 rounded-md p-0.5 border border-blue-500/20" onClick={(e) => e.stopPropagation()}>
                                         <TooltipProvider>
                                           <Tooltip>
                                             <TooltipTrigger asChild>
@@ -1977,6 +1984,7 @@ export default function WHSPRAIPage() {
                                   </div>
                                   )
                                 })}
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -2168,6 +2176,32 @@ export default function WHSPRAIPage() {
           transform: translateZ(0);
           will-change: transform;
           backface-visibility: hidden;
+        }
+
+        /* Small scrollbar for wallet holdings */
+        :global(.custom-holdings-scroll) {
+          /* Hide in Firefox until hover */
+          scrollbar-width: none;
+          scrollbar-color: transparent transparent;
+        }
+        :global(.custom-holdings-scroll:hover) {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(59,130,246,0.6) rgba(15,23,42,0.3);
+        }
+        :global(.custom-holdings-scroll::-webkit-scrollbar) {
+          width: 2px; /* thinner */
+          background: transparent;
+        }
+        :global(.custom-holdings-scroll::-webkit-scrollbar-track) {
+          background: transparent;
+          border-radius: 9999px;
+        }
+        :global(.custom-holdings-scroll::-webkit-scrollbar-thumb) {
+          background: transparent;
+          border-radius: 9999px;
+        }
+        :global(.custom-holdings-scroll:hover::-webkit-scrollbar-thumb) {
+          background: rgba(59,130,246,0.7);
         }
 
         @keyframes scroll-left {
